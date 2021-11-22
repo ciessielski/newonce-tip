@@ -3,12 +3,13 @@
 Application that allows users to tip creators and artists on newonce.net platform. Created during [hack4music](https://www.elpassion.com/hack4music) hackhaton.
 
 ## Flow
-<img width="498" alt="Screenshot 2021-11-22 at 02 06 50" src="https://user-images.githubusercontent.com/2165282/142789199-fc161d51-cf64-44e2-b1a7-d09fd87e9dab.png">
-<img width="497" alt="Screenshot 2021-11-22 at 02 07 05" src="https://user-images.githubusercontent.com/2165282/142789202-0a817a79-ac7b-4f16-983a-1cb3f469f60c.png">
-<img width="496" alt="Screenshot 2021-11-22 at 02 07 18" src="https://user-images.githubusercontent.com/2165282/142789205-b3bf746d-2d33-4497-abc3-a56d81d31f7d.png">
-<img width="496" alt="Screenshot 2021-11-22 at 02 07 43" src="https://user-images.githubusercontent.com/2165282/142789208-0db9d855-cd46-4669-9cee-475da118016a.png">
-<img width="498" alt="Screenshot 2021-11-22 at 02 08 19" src="https://user-images.githubusercontent.com/2165282/142789213-0c93cb94-8fe1-44fc-87a5-0d14bcf4ed5a.png">
-<img width="778" alt="Screenshot 2021-11-22 at 02 16 47" src="https://user-images.githubusercontent.com/2165282/142789236-0ebe580b-d500-473d-b852-99f9487cfc12.png">
+<img width="498" alt="Screenshot 2021-11-22 at 02 52 20" src="https://user-images.githubusercontent.com/2165282/142789602-eae6c9d1-c79e-4ebb-9089-84ee928d067a.png">
+<img width="498" alt="Screenshot 2021-11-22 at 02 52 26" src="https://user-images.githubusercontent.com/2165282/142789607-c9588c0d-708f-44b0-a7cf-551f192047a6.png">
+<img width="498" alt="Screenshot 2021-11-22 at 02 52 33" src="https://user-images.githubusercontent.com/2165282/142789613-5240c8f0-8fcf-491c-8ecd-4621a43d94f3.png">
+<img width="498" alt="Screenshot 2021-11-22 at 02 52 39" src="https://user-images.githubusercontent.com/2165282/142789615-925b576d-dbde-4b39-ab6a-49889906636c.png">
+<img width="498" alt="Screenshot 2021-11-22 at 02 52 42" src="https://user-images.githubusercontent.com/2165282/142789619-d2677334-9748-4ccd-9932-722c8b658387.png">
+<img width="773" alt="Screenshot 2021-11-22 at 02 55 26" src="https://user-images.githubusercontent.com/2165282/142789795-0febbb66-a9d0-49eb-b56b-7a176665e572.png">
+
 
 
 ## Demo
