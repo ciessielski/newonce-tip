@@ -439,6 +439,11 @@ const mainInject = () => {
 			desktopPlayerButtpm.after(donateContainer(WINDOW_VW_WIDTH, DEKSTOP_PLAYER_WIDTH,IS_DESKTOP));
 		}
 
+		// let podcastCover = document.querySelector('.PodcastTile_image__1TurG');
+		// podcastCover.after(coinButton());
+		// footer.after(donateContainer(WINDOW_VW_WIDTH, DEKSTOP_PLAYER_WIDTH));
+
+
 		setInterval(() => {
 			updateArtist();
 			console.log('Artist update...')
@@ -485,6 +490,21 @@ const mainInject = () => {
 	}
 	`)
 }
+
+// podcast main container: .PodcastTile_podcastTile__2fzQG PodcastTile_dark__MFolR
+// podcast container with black background: .PodcastTile_meta__27gUS
+// podcast cover image: .PodcastTile_image__1TurG
+
+function getAllPodcastContiners() {
+	// const elements = document.getElementById("PodcastTile_image__1TurG")
+	const elements = document.querySelectorAll(".PodcastTile_meta__27gUS")
+	return elements
+}
+
+function addCoinsToPodcasts() {
+
+}
+
 
 mainInject();
 
