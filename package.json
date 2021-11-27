@@ -11,7 +11,7 @@
     "patch": "npm version patch && npm publish && git push origin master && git push origin --tags",
     "minor": "npm version minor && npm publish && git push origin master && git push origin --tags",
     "major": "npm version major && npm publish && git push origin master && git push origin --tags",
-    "deploy": "node index.js"
+    "deploy": "npm run deploy"
   },
   "standard": {
     "env": [
