@@ -16,21 +16,7 @@ const PODCAST_INJECT_CLASS = ".PodcastTile_podcastTile__2fzQG";
 const MOBILE_PLAYER_INJECT_CLASS = ".BottomNavPlayer_toggler__2fwVj";
 const DESKTOP_PLAYER_INJECT_CLASS = ".TopNavPlayer_controls__36S2C";
 
-//@@@@@@@@@@@ Custom newonce.net config @@@@@@@@@@@@
-
-const fontUpload = () => {
-	let link = document.createElement('link');
-	link.setAttribute('rel', 'stylesheet');
-	link.setAttribute('type', 'text/css');
-	link.setAttribute('href', 'https://fonts.googleapis.com/css2?family=VT323&display=swap');
-	document.head.appendChild(link);
-}
-
-const preventDefault = () => {
-	fontUpload();
-	let playerWrapper = document.querySelector('.BottomNavPlayer_playerMeta__3cvLI');
-	playerWrapper.style.cssText = 'overflow: visible';
-}
+//@@@@@@@@@@ VIEW @@@@@@@@@@
 
 //@@@@@@@@@@ Elements creations @@@@@@@@@@@@
 
@@ -258,15 +244,78 @@ const donateFrame = () => {
 	return donateFrame;
 }
 
-//@@@@@@@@@@@@ Controlers @@@@@@@@@@@@
+
+
+
+//@@@@@@@@@@@@ CONTROLLER @@@@@@@@@@@@
 
 const addCSS = cssText => document.head.appendChild(document.createElement("style")).innerHTML=cssText;
 
 const returnAllElementsWithGiven = ID => document.querySelectorAll(ID);
 
+const fontUpload = () => {
+	let link = document.createElement('link');
+	link.setAttribute('rel', 'stylesheet');
+	link.setAttribute('type', 'text/css');
+	link.setAttribute('href', 'https://fonts.googleapis.com/css2?family=VT323&display=swap');
+	document.head.appendChild(link);
+}
+
+const preventDefault = () => {
+	fontUpload();
+	let playerWrapper = document.querySelector('.BottomNavPlayer_playerMeta__3cvLI');
+	playerWrapper.style.cssText = 'overflow: visible';
+}
+
+addCSS(
+	`
+	.activeDonateContainer{ 
+		transform: translateX(0px) !important
+	}
+	
+	.activeCoinBuuton{
+		display:none;
+	}
+
+	.activeDonateFrame{
+		transform: translateX(0px) !important;
+	}
+
+	.noneActiveFrame{
+		display:none;
+	}
+
+	.donateFrame{
+		transform: translateX(600px);
+		background-size: contain;
+		width: 216px;
+		height: 150px;
+		position: absolute;
+		top: -175px;
+		right: 17px;
+		background-repeat: no-repeat;
+	}
+
+	.amountButton{
+		width: 50px;
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position: center;
+		border: none;
+		background-color: white;
+	}
+	${PODCAST_INJECT_CLASS}{
+		position:relative;
+	}
+
+	.Container_container__1n7On{
+		overflow:visible;
+	}
+	
+	`)
+
 const toggleDonateFrame = () => {
 	let donateFrame = document.querySelector('.donateFrame');
-
 	const check = donateFrame.classList.contains("activeDonateFrame");
 
 	if(check){ 
@@ -317,71 +366,28 @@ const updateArtist = async () => {
 	});
 }
 
+
+//@@@@@@@@@ MODEL @@@@@@@@
+
+
 const injectWarningBar = () => {
 	let waringInjectHolder = document.querySelector('.AppBar_wrapper__2Z1NQ');
 	waringInjectHolder.after(warningBar());
 }
 
 const injectDonateToPlayer = () => {
-	
-		updateArtist().then(()=>{
-			console.log(CURRENT_PLAY_ALBUM)
-			if(!IS_DESKTOP){
-				document.querySelector(MOBILE_PLAYER_INJECT_CLASS).after(coinButton(30,70));
-			}else{
-				document.querySelector(DESKTOP_PLAYER_INJECT_CLASS).before(coinButton(30,70))
-			}
-		});		
-	
-		setInterval(() => {
-			updateArtist();
-			
-		}, 2000);
-	
+	updateArtist().then(()=>{
+		console.log(CURRENT_PLAY_ALBUM)
+		if(!IS_DESKTOP){
+			document.querySelector(MOBILE_PLAYER_INJECT_CLASS).after(coinButton(30,70));
+		}else{
+			document.querySelector(DESKTOP_PLAYER_INJECT_CLASS).before(coinButton(30,70))
+		}
+	});		
 
-	preventDefault();
-	addCSS(
-	`
-	.activeDonateContainer{ 
-		transform: translateX(0px) !important
-	}
-	
-	.activeCoinBuuton{
-		display:none;
-	}
-
-	.activeDonateFrame{
-		transform: translateX(0px) !important;
-	}
-
-	.noneActiveFrame{
-		display:none;
-	}
-
-	.donateFrame{
-		transform: translateX(600px);
-		background-size: contain;
-		width: 216px;
-		height: 150px;
-		position: absolute;
-		top: -175px;
-		right: 17px;
-		background-repeat: no-repeat;
-	}
-
-	.amountButton{
-		width: 50px;
-		background-repeat: no-repeat;
-		background-size: contain;
-		background-position: center;
-		border: none;
-		background-color: white;
-	}
-	${PODCAST_INJECT_CLASS}{
-		position:relative;
-	}
-	
-	`)
+	setInterval(() => {
+		updateArtist();
+	}, 2000);
 }
 
 const addCoinsToAllPodcasts = () => {	
@@ -401,6 +407,7 @@ const injectDonateToArticle = () => {
 	// [] (optional) add payu logic
 }
 
+preventDefault();
 injectWarningBar()
 injectDonateToPodcasts();
 injectDonateToArticle()
