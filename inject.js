@@ -493,7 +493,8 @@ const injectDonateToPlayer = () => {
 // podcast cover image: .PodcastTile_image__1TurG
 
 const allPodcastElements = () => {
-	return document.querySelectorAll(".PodcastTile_meta__27gUS")
+	// return document.querySelectorAll(".PodcastTile_meta__27gUS")
+	return document.querySelectorAll(".EpisodePlayer_player__ALyFI")
 }
 
 // //we should use coinButton (line 29) with extra css argument
@@ -519,7 +520,8 @@ const allPodcastElements = () => {
 
 
 function addCoinToPodcast(index) {
-    allPodcastElements()[index].insertAdjacentElement('afterbegin', coinButton())
+    // allPodcastElements()[index].insertAdjacentElement('afterbegin', coinButton())
+	allPodcastElements()[index].insertAdjacentElement('beforeend', coinButton())
 }
 
 function addCoinsToAllPodcasts() {
