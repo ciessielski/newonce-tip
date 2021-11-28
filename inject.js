@@ -1,16 +1,22 @@
+//@@@@@@@@@@@ Globals @@@@@@@@@@@
 let CURRENT_PLAY_ALBUM = {};
 let CURRENT_PLAY_ARTIST = {};
 let TIP_AMOUNT = 0;
 let BLIK_CODE = {};
-let IS_DESKTOP = false;
 
-const warningBar = () => {
-	let warningBar = document.createElement('div')
-	warningBar.style.cssText = "color:white;text-align:center;background-color:red;width:100%;padding-bottom:5px;padding-top:5px;line-height:35px;z-index:9999;"
-	warningBar.innerHTML = 'Ta strona jest kopią newonce.net stworzoną na potrzeby hackhatonu hack4music. <a href="https://github.com/ciessielski/newonce-tip" style="color: white;">[kod na githubie]</a>'
+const WINDOW_VW_WIDTH = window.innerWidth;
+const DEKSTOP_PLAYER_WIDTH = 496;
+const MAX_WIDTH_FOR_BOTTOM_PLAYER = 1023;
+const IS_DESKTOP = (WINDOW_VW_WIDTH < MAX_WIDTH_FOR_BOTTOM_PLAYER) ? false : true;
+const API_URL = 'https://newonce-tip-api.vercel.app/api';
 
-	return warningBar;
-}
+//@@@@@@@@@@@ Identifiers of injected DOM elements @@@@@@@@@@@
+
+const PODCAST_INJECT_CLASS = ".PodcastTile_podcastTile__2fzQG";
+const MOBILE_PLAYER_INJECT_CLASS = ".BottomNavPlayer_toggler__2fwVj";
+const DESKTOP_PLAYER_INJECT_CLASS = ".TopNavPlayer_controls__36S2C";
+
+//@@@@@@@@@@@ Custom newonce.net config @@@@@@@@@@@@
 
 const fontUpload = () => {
 	let link = document.createElement('link');
@@ -21,28 +27,48 @@ const fontUpload = () => {
 }
 
 const preventDefault = () => {
+	fontUpload();
 	let playerWrapper = document.querySelector('.BottomNavPlayer_playerMeta__3cvLI');
 	playerWrapper.style.cssText = 'overflow: visible';
 }
 
-const coinButton = (placement, podcast_index) => {
+//@@@@@@@@@@ Elements creations @@@@@@@@@@@@
+
+const warningBar = () => {
+	let warningBar = document.createElement('div')
+	warningBar.style.cssText = "color:white;text-align:center;background-color:red;width:100%;padding-bottom:5px;padding-top:5px;line-height:35px;z-index:9999;"
+	warningBar.innerHTML = 'Ta strona jest kopią newonce.net stworzoną na potrzeby hackhatonu hack4music. <a href="https://github.com/ciessielski/newonce-tip" style="color: white;">[kod na githubie]</a>'
+
+	return warningBar;
+}
+
+const coinButton = (top,right, size=40) => {
 
 	let tipButton = document.createElement('button');
 	tipButton.classList.add('coinButton');
-	tipButton.style.cssText = `z-index: 0;
+	tipButton.onclick = ()=> {toggleDonateFrame()};
+
+	tipButton.style.cssText = 
+	`
+		z-index: 0;
     	background-image: url(https://i.ibb.co/5RTRKXt/kapimoneta.png);
 		background-repeat: no-repeat;
 		background-size: contain;
 		background-color: transparent;
 		border: none;
-		/* position: absolute; */
-		width: 40px;
-		height: 40px;`
-
-	tipButton.onclick = ()=> {toggleDonateFrame()};
-
+		width: ${size}px;
+		height: ${size}px;
+		position: absolute;
+    	right: ${right}px;
+    	top: ${top}px;
+	`
 	return tipButton;
 }
+
+
+
+
+
 
 //Choosing the amount
 const donateFrameStep1 = () => {
@@ -232,54 +258,24 @@ const donateFrame = () => {
 	return donateFrame;
 }
 
-// const donateContainerBottomBox = () => {
-// 	let donateContainerBottomBox = document.createElement('div');
-// 	donateContainerBottomBox.style.cssText = "width: 100%;height: 0%;position: absolute;bottom: 0px;background-color: black;display:flex;justify-content: right;align-items: center;"
-// 	donateContainerBottomBox.appendChild(donateFrame());
+//@@@@@@@@@@@@ Controlers @@@@@@@@@@@@
 
-// 	return donateContainerBottomBox;
-// }
+const addCSS = cssText => document.head.appendChild(document.createElement("style")).innerHTML=cssText;
 
-// const donateContainer = (viewportWidth, desktopPlayerWidth, isDekstop) => {
-
-// 	let donateContainer = document.createElement('div');
-// 	donateContainer.classList.add('donateContainer');
-// 	let desktopCSS = isDekstop ? "bottom:0;top:96px;" : "" 	
-// 	donateContainer.style.cssText = `max-width:1023px;transform: translateX(1500px);position: fixed;width: 100%;bottom: 116px;max-height: 560px;${desktopCSS}`
-// 	donateContainer.appendChild(donateContainerBottomBox())	
-
-// 	return donateContainer;
-// } 
-
-// const toggleDonateContainer = (index) => {
-// 	let donateContainer = document.querySelector('.donateContainer');
-
-// 	const check = donateContainer.classList.contains("activeDonateContainer");
-// 	if(check){
-// 		donateContainer.classList.remove('activeDonateContainer');
-// 	}
-// 	else{
-// 		console.log('dsds')
-// 		donateContainer.classList.add('activeDonateContainer');
-// 	}	
-// }
-
+const returnAllElementsWithGiven = ID => document.querySelectorAll(ID);
 
 const toggleDonateFrame = () => {
 	let donateFrame = document.querySelector('.donateFrame');
 
 	const check = donateFrame.classList.contains("activeDonateFrame");
-	if(check){
+
+	if(check){ 
 		donateFrame.classList.remove('activeDonateFrame');
 	}
-	else{
+	else{ 
 		donateFrame.classList.add('activeDonateFrame');
 	}
 }
-
-const addCSS = s => document.head.appendChild(document.createElement("style")).innerHTML=s;
-
-const API_URL = 'https://newonce-tip-api.vercel.app/api';
 
 const getNowPlaying = async () => {
     try {
@@ -313,10 +309,11 @@ const donate = async (artist, blikCode, amount) => {
     }
 }
 
-const updateArtist = () => {
-	getNowPlaying().then((response) => {
+const updateArtist = async () => {
+	await getNowPlaying().then((response) => {
 		CURRENT_PLAY_ALBUM = response.artworkUrlLarge;
 		CURRENT_PLAY_ARTIST = response.artist;
+		console.log('Artist update...');
 	});
 }
 
@@ -326,36 +323,25 @@ const injectWarningBar = () => {
 }
 
 const injectDonateToPlayer = () => {
-	const WINDOW_VW_WIDTH = window.innerWidth;
-	const DEKSTOP_PLAYER_WIDTH = 496;
-	const MAX_WIDTH_FOR_BOTTOM_PLAYER = 1023;
-	IS_DESKTOP = (WINDOW_VW_WIDTH < MAX_WIDTH_FOR_BOTTOM_PLAYER) ? false : true;
-	let footer = document.querySelector("footer");
-
-	getNowPlaying().then((response) => {
-		console.log(response)
-		CURRENT_PLAY_ALBUM = response.artworkUrlLarge;
-		CURRENT_PLAY_ARTIST = response.artist;
-		
-		if(!IS_DESKTOP){
-			let playerTogglerButton = document.querySelector('.BottomNavPlayer_toggler__2fwVj');
-			playerTogglerButton.after(coinButton());
-			footer.after(donateContainer(WINDOW_VW_WIDTH, DEKSTOP_PLAYER_WIDTH));
-		}else{
-			let desktopPlayerButton = document.querySelector('.TopNavPlayer_controls__36S2C');
-			desktopPlayerButton.before(coinButton(true))
-			desktopPlayerButton.after(donateContainer(WINDOW_VW_WIDTH, DEKSTOP_PLAYER_WIDTH,IS_DESKTOP));
-		}
-
+	
+		updateArtist().then(()=>{
+			console.log(CURRENT_PLAY_ALBUM)
+			if(!IS_DESKTOP){
+				document.querySelector(MOBILE_PLAYER_INJECT_CLASS).after(coinButton(30,70));
+			}else{
+				document.querySelector(DESKTOP_PLAYER_INJECT_CLASS).before(coinButton(30,70))
+			}
+		});		
+	
 		setInterval(() => {
 			updateArtist();
-			console.log('Artist update...')
+			
 		}, 2000);
-	});
+	
 
 	preventDefault();
-	fontUpload();
-	addCSS(`
+	addCSS(
+	`
 	.activeDonateContainer{ 
 		transform: translateX(0px) !important
 	}
@@ -391,17 +377,17 @@ const injectDonateToPlayer = () => {
 		border: none;
 		background-color: white;
 	}
+	${PODCAST_INJECT_CLASS}{
+		position:relative;
+	}
+	
 	`)
 }
 
-const allPodcastElements = () => {
-	return document.querySelectorAll(".EpisodePlayer_player__ALyFI")
-}
-
-function addCoinsToAllPodcasts() {
-	for (var i = 0; i < allPodcastElements().length; i++) {
-		allPodcastElements()[i].insertAdjacentElement('beforeend', coinButton())
-	}
+const addCoinsToAllPodcasts = () => {	
+	for (const podcast of returnAllElementsWithGiven(PODCAST_INJECT_CLASS)){
+		podcast.appendChild(coinButton(-20,-20,35))
+	} 
 }
 
 const injectDonateToPodcasts = () => {
@@ -420,3 +406,58 @@ injectDonateToPodcasts();
 injectDonateToArticle()
 injectDonateToPlayer();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//@@@@@@@@@@@ TRASH @@@@@@@@@@@@@
+
+
+// const donateContainerBottomBox = () => {
+// 	let donateContainerBottomBox = document.createElement('div');
+// 	donateContainerBottomBox.style.cssText = "width: 100%;height: 0%;position: absolute;bottom: 0px;background-color: black;display:flex;justify-content: right;align-items: center;"
+// 	donateContainerBottomBox.appendChild(donateFrame());
+
+// 	return donateContainerBottomBox;
+// }
+
+// const donateContainer = (viewportWidth, desktopPlayerWidth, isDekstop) => {
+
+// 	let donateContainer = document.createElement('div');
+// 	donateContainer.classList.add('donateContainer');
+// 	let desktopCSS = isDekstop ? "bottom:0;top:96px;" : "" 	
+// 	donateContainer.style.cssText = `max-width:1023px;transform: translateX(1500px);position: fixed;width: 100%;bottom: 116px;max-height: 560px;${desktopCSS}`
+// 	donateContainer.appendChild(donateContainerBottomBox())	
+
+// 	return donateContainer;
+// } 
+
+// const toggleDonateContainer = (index) => {
+// 	let donateContainer = document.querySelector('.donateContainer');
+
+// 	const check = donateContainer.classList.contains("activeDonateContainer");
+// 	if(check){
+// 		donateContainer.classList.remove('activeDonateContainer');
+// 	}
+// 	else{
+// 		console.log('dsds')
+// 		donateContainer.classList.add('activeDonateContainer');
+// 	}	
+// }
