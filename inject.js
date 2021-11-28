@@ -2,7 +2,6 @@ let CURRENT_PLAY_ALBUM = {};
 let CURRENT_PLAY_ARTIST = {};
 let TIP_AMOUNT = 0;
 let BLIK_CODE = {};
-// let TIPS_COUNT = {}
 let IS_DESKTOP = false;
 
 const warningBar = () => {
@@ -26,7 +25,7 @@ const preventDefault = () => {
 	playerWrapper.style.cssText = 'overflow: visible';
 }
 
-const coinButton = () => {
+const coinButton = (index) => {
 	let tipButton = document.createElement('button');
 	tipButton.classList.add('coinButton');
 	let desktopCSS = IS_DESKTOP ? "position: absolute;top: 37px;right: 126px;" : "";
@@ -34,7 +33,7 @@ const coinButton = () => {
 	// tipButton.style.cssText = `z-index:9999;background-image: url("https://i.ibb.co/5RTRKXt/kapimoneta.png"); border: none; position: relative; margin: 0;${desktopCSS}`
 	tipButton.style.cssText = `z-index:9999; border: none; position: relative; margin: 0;${desktopCSS}`
 
-	tipButton.onclick = ()=> {toggleDonateContainer()};
+	tipButton.onclick = ()=> {toggleDonateContainer(index)};
 	let tipButtonImage = document.createElement('img');
 	tipButtonImage.src = "https://i.ibb.co/5RTRKXt/kapimoneta.png"
 	let destktopCSSIMG = !IS_DESKTOP ? "top: -34px;right: -20px;" : "";
@@ -44,50 +43,6 @@ const coinButton = () => {
 	return tipButton;
 }
 
-// const getCurrnetPlayedAlbumCover = () =>{
-// 	//const isElementExist = document.querySelector('.Radio_radioImage__1WhXi') || false
-// 	const returnImage = CURRENT_PLAY_ALBUM ? CURRENT_PLAY_ALBUM : "https://cdn.newonce.me/uploads/podcast/251/feed_juras.jpeg"
-	
-// 	return returnImage;
-// }
-
-// const tipCountText = () => {
-// 	let tipCountText = document.createElement('p');
-// 	tipCountText.innerHTML = `X${TIPS_COUNT}`
-// 	tipCountText.style.cssText = "font-size: 40px;font-family: 'VT323', monospace;color: white;padding-left:3px"	
-
-// 	return tipCountText;
-// }
-
-// const tipImage = () => {
-// 	let tipImage = document.createElement('img');
-// 	tipImage.style.cssText = "height: 43px; margin-top:7px"
-// 	tipImage.src = "https://i.ibb.co/5RTRKXt/kapimoneta.png"
-
-// 	return tipImage;
-// }
-
-// const tipCounterHolder = () => {
-// 	let tipsCountHolder = document.createElement('div')
-// 	tipsCountHolder.style.cssText = "display: flex;width: 109px;"
-
-
-// 	tipsCountHolder.appendChild(tipImage());
-// 	tipsCountHolder.appendChild(tipCountText());
-
-// 	return tipsCountHolder;
-// }
-
-// const closeButton = () => {
-// 	let rotateValue = IS_DESKTOP ? "0" : "178";
-// 	let svg = `<svg width="24" height="24" fill="none" style="border: none;background: transparent;color: white;transform: rotateX(${rotateValue}deg);" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 16.25L12 11.67l-4.59 4.58L6 14.84l6-6 6 6-1.41 1.41z" fill="currentcolor"></path></svg>`;
-// 	let closeButton = document.createElement('button');
-// 	closeButton.onclick = ()=> {toggleDonateContainer()};
-// 	closeButton.style.cssText = "border: none;background: transparent;";
-// 	closeButton.innerHTML = svg;
-
-// 	return closeButton;
-// }
 
 const donateButton = () => {
 	let donateButton = document.createElement('button');
@@ -97,25 +52,6 @@ const donateButton = () => {
 
 	return donateButton;
 }
-
-// const newonceBorder = () => {
-// 	let newonceBorderImg = document.createElement('img');
-// 	newonceBorderImg.style.cssText = "width:100%"
-// 	newonceBorderImg.src = "https://i.ibb.co/sjGZjxp/kapiramka-abum.png";
-// 	newonceBorderImg.alt = "newonceBorder"
-
-// 	return newonceBorderImg;
-// }
-
-// const albumCoverHolder = (albumPhoto) => {
-// 	let albumCoverHolder = document.createElement('div');
-// 	albumCoverHolder.classList.add('albumCoverHolder');
-// 	albumCoverHolder.style.cssText = `width: 100%;height: 86%;background-repeat: no-repeat;background-image: url(${albumPhoto});background-color: black;background-position: center;`
-
-// 	albumCoverHolder.appendChild(newonceBorder());
-
-// 	return albumCoverHolder;
-// }
 
 //Choosing the amount
 const donateFrameStep1 = () => {
@@ -257,8 +193,6 @@ const donateFrameStep2 = () => {
 					document.querySelector('.donateButton').style.backgroundImage = `url('https://i.ibb.co/NNrrkh7/kapitick.png')`
 				}, 4000);
 			}, 5000);
-
-			
 		}			
 	}
 	
@@ -310,11 +244,7 @@ const donateFrame = () => {
 const donateContainerBottomBox = () => {
 	let donateContainerBottomBox = document.createElement('div');
 	donateContainerBottomBox.style.cssText = "width: 100%;height: 0%;position: absolute;bottom: 0px;background-color: black;display:flex;justify-content: right;align-items: center;"
-
 	donateContainerBottomBox.appendChild(donateFrame());
-	// donateContainerBottomBox.appendChild(tipCounterHolder());
-	// donateContainerBottomBox.appendChild(donateButton());
-	// donateContainerBottomBox.appendChild(closeButton());
 
 	return donateContainerBottomBox;
 }
@@ -325,30 +255,24 @@ const donateContainer = (viewportWidth, desktopPlayerWidth,isDekstop) => {
 	donateContainer.classList.add('donateContainer');
 	let desktopCSS = isDekstop ? "bottom:0;top:96px;" : "" 	
 	donateContainer.style.cssText = `max-width:1023px;transform: translateX(1500px);position: fixed;width: 100%;bottom: 116px;max-height: 560px;${desktopCSS}`
-	// if(viewportWidth > 1023){
-	// 	donateContainer.appendChild(albumCoverHolder(getCurrnetPlayedAlbumCover()));
-	// 	donateContainer.style.maxWidth = `${desktopPlayerWidth}px`;
-	// }
 	donateContainer.appendChild(donateContainerBottomBox())	
 
 	return donateContainer;
 } 
 
-const toggleDonateContainer = () => {
+const toggleDonateContainer = (index) => {
 	let donateContainer = document.querySelector('.donateContainer');
-	// let coinButton = document.querySelector('.coinButton');
 
 	const check = donateContainer.classList.contains("activeDonateContainer");
 	if(check){
 		donateContainer.classList.remove('activeDonateContainer');
-		// coinButton.classList.remove('activeCoinBuuton');
 	}
 	else{
 		console.log('dsds')
 		donateContainer.classList.add('activeDonateContainer');
-		// coinButton.classList.add('activeCoinBuuton');
 	}	
 }
+
 
 const toggleDonateFrame = () => {
 	let donateFrame = document.querySelector('.donateFrame');
@@ -361,7 +285,6 @@ const toggleDonateFrame = () => {
 		donateFrame.classList.add('activeDonateFrame');
 	}
 }
-
 
 const addCSS = s => document.head.appendChild(document.createElement("style")).innerHTML=s;
 
@@ -403,11 +326,12 @@ const updateArtist = () => {
 	getNowPlaying().then((response) => {
 		CURRENT_PLAY_ALBUM = response.artworkUrlLarge;
 		CURRENT_PLAY_ARTIST = response.artist;
-		// TIPS_COUNT = response.numberOfDonations;
 	});
-	// if(IS_DESKTOP){
-	// 	document.querySelector('.albumCoverHolder').style.backgroundImage = `url(${getCurrnetPlayedAlbumCover()})`
-	// }
+}
+
+const injectWarningBar = () => {
+	let waringInjectHolder = document.querySelector('.AppBar_wrapper__2Z1NQ');
+	waringInjectHolder.after(warningBar());
 }
 
 const injectDonateToPlayer = () => {
@@ -417,14 +341,10 @@ const injectDonateToPlayer = () => {
 	IS_DESKTOP = (WINDOW_VW_WIDTH < MAX_WIDTH_FOR_BOTTOM_PLAYER) ? false : true;
 	let footer = document.querySelector("footer");
 
-	let waringInjectHolder = document.querySelector('.AppBar_wrapper__2Z1NQ');
-	waringInjectHolder.after(warningBar());
-
 	getNowPlaying().then((response) => {
 		console.log(response)
 		CURRENT_PLAY_ALBUM = response.artworkUrlLarge;
 		CURRENT_PLAY_ARTIST = response.artist;
-		// TIPS_COUNT = response.numberOfDonations;
 		
 		if(!IS_DESKTOP){
 			let playerTogglerButton = document.querySelector('.BottomNavPlayer_toggler__2fwVj');
@@ -435,11 +355,6 @@ const injectDonateToPlayer = () => {
 			desktopPlayerButton.before(coinButton(true))
 			desktopPlayerButton.after(donateContainer(WINDOW_VW_WIDTH, DEKSTOP_PLAYER_WIDTH,IS_DESKTOP));
 		}
-
-		// let podcastCover = document.querySelector('.PodcastTile_image__1TurG');
-		// podcastCover.after(coinButton());
-		// footer.after(donateContainer(WINDOW_VW_WIDTH, DEKSTOP_PLAYER_WIDTH));
-
 
 		setInterval(() => {
 			updateArtist();
@@ -488,60 +403,29 @@ const injectDonateToPlayer = () => {
 	`)
 }
 
-// podcast main container: .PodcastTile_podcastTile__2fzQG PodcastTile_dark__MFolR
-// podcast container with black background: .PodcastTile_meta__27gUS
-// podcast cover image: .PodcastTile_image__1TurG
-
 const allPodcastElements = () => {
-	// return document.querySelectorAll(".PodcastTile_meta__27gUS")
 	return document.querySelectorAll(".EpisodePlayer_player__ALyFI")
-}
-
-// //we should use coinButton (line 29) with extra css argument
-// const addCoin = () => {
-// 	let tipButton = document.createElement('button');
-// 	tipButton.classList.add('coinButton');
-
-// 	tipButton.style.cssText = `z-index: 9999; background: none; border: none; position: relative; margin: 0px; left: 90%; top: -20%;`
-
-// 	tipButton.onclick = ()=> {toggleDonateContainer()};
-// 	let tipButtonImage = document.createElement('img');
-// 	tipButtonImage.src = "https://i.ibb.co/5RTRKXt/kapimoneta.png"
-
-// 	// let destktopCSSIMG = !IS_DESKTOP ? "top: -34px;right: -20px;" : "";
-
-// 	tipButtonImage.style.cssText = `width: 43px; position: absolute;`
-
-// 	tipButton.appendChild(tipButtonImage)
-
-// 	return tipButton;
-// }
-// //we should use coinButton (line 29) with extra css argument
-
-
-function addCoinToPodcast(index) {
-    // allPodcastElements()[index].insertAdjacentElement('afterbegin', coinButton())
-	allPodcastElements()[index].insertAdjacentElement('beforeend', coinButton())
 }
 
 function addCoinsToAllPodcasts() {
 	for (var i = 0; i < allPodcastElements().length; i++) {
-		addCoinToPodcast(i)
+		allPodcastElements()[i].insertAdjacentElement('beforeend', coinButton())
 	}
 }
 
-addCoinsToAllPodcasts()
-
 const injectDonateToPodcasts = () => {
-
+	addCoinsToAllPodcasts()
+	// TODO: [] (optional) add payu logic
 }
 
 const injectDonateToArticle = () => {
-
+	// TODO: 
+	// [] inject coin into article footer next to author
+	// [] (optional) add payu logic
 }
 
-
-injectDonateToPlayer();
+injectWarningBar()
 injectDonateToPodcasts();
 injectDonateToArticle()
+injectDonateToPlayer();
 
