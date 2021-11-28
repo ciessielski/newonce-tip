@@ -5,6 +5,27 @@ let BLIK_CODE = {};
 let TIPS_COUNT = {}
 let IS_DESKTOP = false;
 
+const warningBar = () => {
+	let warningBar = document.createElement('div')
+	warningBar.style.cssText = "color:white;text-align:center;background-color:red;width:100%;padding-bottom:5px;padding-top:5px;line-height:35px;z-index:9999;"
+	warningBar.innerHTML = 'Ta strona jest kopią newonce.net stworzoną na potrzeby hackhatonu hack4music. <a href="https://github.com/ciessielski/newonce-tip" style="color: white;">[kod na githubie]</a>'
+
+	return warningBar;
+}
+
+const fontUpload = () => {
+	let link = document.createElement('link');
+	link.setAttribute('rel', 'stylesheet');
+	link.setAttribute('type', 'text/css');
+	link.setAttribute('href', 'https://fonts.googleapis.com/css2?family=VT323&display=swap');
+	document.head.appendChild(link);
+}
+
+const preventDefault = () => {
+	let playerWrapper = document.querySelector('.BottomNavPlayer_playerMeta__3cvLI');
+	playerWrapper.style.cssText = 'overflow: visible';
+}
+
 const coinButton = () => {
 	let tipButton = document.createElement('button');
 	tipButton.classList.add('coinButton');
@@ -24,20 +45,6 @@ const coinButton = () => {
 	return tipButton;
 }
 
-const fontUpload = () => {
-	let link = document.createElement('link');
-	link.setAttribute('rel', 'stylesheet');
-	link.setAttribute('type', 'text/css');
-	link.setAttribute('href', 'https://fonts.googleapis.com/css2?family=VT323&display=swap');
-	document.head.appendChild(link);
-}
-
-const preventDefault = () => {
-	let playerWrapper = document.querySelector('.BottomNavPlayer_playerMeta__3cvLI');
-	playerWrapper.style.cssText = 'overflow: visible';
-}
-
-
 // const getCurrnetPlayedAlbumCover = () =>{
 // 	//const isElementExist = document.querySelector('.Radio_radioImage__1WhXi') || false
 // 	const returnImage = CURRENT_PLAY_ALBUM ? CURRENT_PLAY_ALBUM : "https://cdn.newonce.me/uploads/podcast/251/feed_juras.jpeg"
@@ -53,13 +60,13 @@ const preventDefault = () => {
 // 	return tipCountText;
 // }
 
-const tipImage = () => {
-	let tipImage = document.createElement('img');
-	tipImage.style.cssText = "height: 43px; margin-top:7px"
-	tipImage.src = "https://i.ibb.co/5RTRKXt/kapimoneta.png"
+// const tipImage = () => {
+// 	let tipImage = document.createElement('img');
+// 	tipImage.style.cssText = "height: 43px; margin-top:7px"
+// 	tipImage.src = "https://i.ibb.co/5RTRKXt/kapimoneta.png"
 
-	return tipImage;
-}
+// 	return tipImage;
+// }
 
 // const tipCounterHolder = () => {
 // 	let tipsCountHolder = document.createElement('div')
@@ -72,16 +79,16 @@ const tipImage = () => {
 // 	return tipsCountHolder;
 // }
 
-const closeButton = () => {
-	let rotateValue = IS_DESKTOP ? "0" : "178";
-	let svg = `<svg width="24" height="24" fill="none" style="border: none;background: transparent;color: white;transform: rotateX(${rotateValue}deg);" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 16.25L12 11.67l-4.59 4.58L6 14.84l6-6 6 6-1.41 1.41z" fill="currentcolor"></path></svg>`;
-	let closeButton = document.createElement('button');
-	closeButton.onclick = ()=> {toggleDonateContainer()};
-	closeButton.style.cssText = "border: none;background: transparent;";
-	closeButton.innerHTML = svg;
+// const closeButton = () => {
+// 	let rotateValue = IS_DESKTOP ? "0" : "178";
+// 	let svg = `<svg width="24" height="24" fill="none" style="border: none;background: transparent;color: white;transform: rotateX(${rotateValue}deg);" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 16.25L12 11.67l-4.59 4.58L6 14.84l6-6 6 6-1.41 1.41z" fill="currentcolor"></path></svg>`;
+// 	let closeButton = document.createElement('button');
+// 	closeButton.onclick = ()=> {toggleDonateContainer()};
+// 	closeButton.style.cssText = "border: none;background: transparent;";
+// 	closeButton.innerHTML = svg;
 
-	return closeButton;
-}
+// 	return closeButton;
+// }
 
 const donateButton = () => {
 	let donateButton = document.createElement('button');
@@ -92,24 +99,24 @@ const donateButton = () => {
 	return donateButton;
 }
 
-const newonceBorder = () => {
-	let newonceBorderImg = document.createElement('img');
-	newonceBorderImg.style.cssText = "width:100%"
-	newonceBorderImg.src = "https://i.ibb.co/sjGZjxp/kapiramka-abum.png";
-	newonceBorderImg.alt = "newonceBorder"
+// const newonceBorder = () => {
+// 	let newonceBorderImg = document.createElement('img');
+// 	newonceBorderImg.style.cssText = "width:100%"
+// 	newonceBorderImg.src = "https://i.ibb.co/sjGZjxp/kapiramka-abum.png";
+// 	newonceBorderImg.alt = "newonceBorder"
 
-	return newonceBorderImg;
-}
+// 	return newonceBorderImg;
+// }
 
-const albumCoverHolder = (albumPhoto) => {
-	let albumCoverHolder = document.createElement('div');
-	albumCoverHolder.classList.add('albumCoverHolder');
-	albumCoverHolder.style.cssText = `width: 100%;height: 86%;background-repeat: no-repeat;background-image: url(${albumPhoto});background-color: black;background-position: center;`
+// const albumCoverHolder = (albumPhoto) => {
+// 	let albumCoverHolder = document.createElement('div');
+// 	albumCoverHolder.classList.add('albumCoverHolder');
+// 	albumCoverHolder.style.cssText = `width: 100%;height: 86%;background-repeat: no-repeat;background-image: url(${albumPhoto});background-color: black;background-position: center;`
 
-	albumCoverHolder.appendChild(newonceBorder());
+// 	albumCoverHolder.appendChild(newonceBorder());
 
-	return albumCoverHolder;
-}
+// 	return albumCoverHolder;
+// }
 
 //Choosing the amount
 const donateFrameStep1 = () => {
@@ -193,7 +200,6 @@ const setAmoutBlikIcon = (tipAmount) => {
 	}
 	
 	amountIcon.src = img;
-
 }
 
 //Blik 
@@ -405,15 +411,7 @@ const updateArtist = () => {
 	// }
 }
 
-const warningBar = () => {
-	let warningBar = document.createElement('div')
-	warningBar.style.cssText = "color:white;text-align:center;background-color:red;width:100%;padding-bottom:5px;padding-top:5px;line-height:35px;z-index:9999;"
-	warningBar.innerHTML = 'Ta strona jest kopią newonce.net stworzoną na potrzeby hackhatonu hack4music. <a href="https://github.com/ciessielski/newonce-tip" style="color: white;">[kod na githubie]</a>'
-
-	return warningBar;
-}
-
-const mainInject = () => {
+const injectDonateToPlayer = () => {
 	const WINDOW_VW_WIDTH = window.innerWidth;
 	const DEKSTOP_PLAYER_WIDTH = 496;
 	const MAX_WIDTH_FOR_BOTTOM_PLAYER = 1023;
@@ -495,16 +493,56 @@ const mainInject = () => {
 // podcast container with black background: .PodcastTile_meta__27gUS
 // podcast cover image: .PodcastTile_image__1TurG
 
-function getAllPodcastContiners() {
-	// const elements = document.getElementById("PodcastTile_image__1TurG")
+const allPodcastElements = () => {
+
 	const elements = document.querySelectorAll(".PodcastTile_meta__27gUS")
+
 	return elements
 }
 
-function addCoinsToPodcasts() {
+//we should use coinButton (line 29) with extra css argument
+const addCoin = () => {
+
+	let tipButton = document.createElement('button');
+	tipButton.classList.add('coinButton');
+
+	tipButton.style.cssText = `z-index: 9999; background: none; border: none; position: relative; margin: 0px; left: 90%; top: -20%;`
+
+	tipButton.onclick = ()=> {toggleDonateContainer()};
+	let tipButtonImage = document.createElement('img');
+	tipButtonImage.src = "https://i.ibb.co/5RTRKXt/kapimoneta.png"
+
+	// let destktopCSSIMG = !IS_DESKTOP ? "top: -34px;right: -20px;" : "";
+
+	tipButtonImage.style.cssText = `width: 43px; position: absolute;`
+
+	tipButton.appendChild(tipButtonImage)
+
+	return tipButton;
+}
+
+function addCoinToPodcast(index) {
+    allPodcastElements()[index].insertAdjacentElement('afterbegin', addCoin())
+}
+
+function addCoinsToAllPodcasts() {
+	for (var i = 0; i < allPodcastElements().length; i++) {
+		addCoinToPodcast(i)
+	}
+}
+
+addCoinsToAllPodcasts()
+
+const injectDonateToPodcasts = () => {
+
+}
+
+const injectDonateToArticle = () => {
 
 }
 
 
-// mainInject();
+injectDonateToPlayer();
+injectDonateToPodcasts();
+injectDonateToArticle()
 
