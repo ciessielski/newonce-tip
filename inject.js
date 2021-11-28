@@ -38,20 +38,20 @@ const preventDefault = () => {
 }
 
 
-const getCurrnetPlayedAlbumCover = () =>{
-	//const isElementExist = document.querySelector('.Radio_radioImage__1WhXi') || false
-	const returnImage = CURRENT_PLAY_ALBUM ? CURRENT_PLAY_ALBUM : "https://cdn.newonce.me/uploads/podcast/251/feed_juras.jpeg"
+// const getCurrnetPlayedAlbumCover = () =>{
+// 	//const isElementExist = document.querySelector('.Radio_radioImage__1WhXi') || false
+// 	const returnImage = CURRENT_PLAY_ALBUM ? CURRENT_PLAY_ALBUM : "https://cdn.newonce.me/uploads/podcast/251/feed_juras.jpeg"
 	
-	return returnImage;
-}
+// 	return returnImage;
+// }
 
-const tipCountText = () => {
-	let tipCountText = document.createElement('p');
-	tipCountText.innerHTML = `X${TIPS_COUNT}`
-	tipCountText.style.cssText = "font-size: 40px;font-family: 'VT323', monospace;color: white;padding-left:3px"	
+// const tipCountText = () => {
+// 	let tipCountText = document.createElement('p');
+// 	tipCountText.innerHTML = `X${TIPS_COUNT}`
+// 	tipCountText.style.cssText = "font-size: 40px;font-family: 'VT323', monospace;color: white;padding-left:3px"	
 
-	return tipCountText;
-}
+// 	return tipCountText;
+// }
 
 const tipImage = () => {
 	let tipImage = document.createElement('img');
@@ -61,16 +61,16 @@ const tipImage = () => {
 	return tipImage;
 }
 
-const tipCounterHolder = () => {
-	let tipsCountHolder = document.createElement('div')
-	tipsCountHolder.style.cssText = "display: flex;width: 109px;"
+// const tipCounterHolder = () => {
+// 	let tipsCountHolder = document.createElement('div')
+// 	tipsCountHolder.style.cssText = "display: flex;width: 109px;"
 
 
-	tipsCountHolder.appendChild(tipImage());
-	tipsCountHolder.appendChild(tipCountText());
+// 	tipsCountHolder.appendChild(tipImage());
+// 	tipsCountHolder.appendChild(tipCountText());
 
-	return tipsCountHolder;
-}
+// 	return tipsCountHolder;
+// }
 
 const closeButton = () => {
 	let rotateValue = IS_DESKTOP ? "0" : "178";
