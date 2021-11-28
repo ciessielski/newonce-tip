@@ -2,7 +2,7 @@ let CURRENT_PLAY_ALBUM = {};
 let CURRENT_PLAY_ARTIST = {};
 let TIP_AMOUNT = 0;
 let BLIK_CODE = {};
-let TIPS_COUNT = {}
+// let TIPS_COUNT = {}
 let IS_DESKTOP = false;
 
 const warningBar = () => {
@@ -31,15 +31,14 @@ const coinButton = () => {
 	tipButton.classList.add('coinButton');
 	let desktopCSS = IS_DESKTOP ? "position: absolute;top: 37px;right: 126px;" : "";
 
-	tipButton.style.cssText = `z-index:9999;background: none; border: none; position: relative; margin: 0;${desktopCSS}`
+	// tipButton.style.cssText = `z-index:9999;background-image: url("https://i.ibb.co/5RTRKXt/kapimoneta.png"); border: none; position: relative; margin: 0;${desktopCSS}`
+	tipButton.style.cssText = `z-index:9999; border: none; position: relative; margin: 0;${desktopCSS}`
+
 	tipButton.onclick = ()=> {toggleDonateContainer()};
 	let tipButtonImage = document.createElement('img');
 	tipButtonImage.src = "https://i.ibb.co/5RTRKXt/kapimoneta.png"
-
 	let destktopCSSIMG = !IS_DESKTOP ? "top: -34px;right: -20px;" : "";
-
 	tipButtonImage.style.cssText = `width: 43px;position: absolute; ${destktopCSSIMG}`
-
 	tipButton.appendChild(tipButtonImage)
 
 	return tipButton;
@@ -404,7 +403,7 @@ const updateArtist = () => {
 	getNowPlaying().then((response) => {
 		CURRENT_PLAY_ALBUM = response.artworkUrlLarge;
 		CURRENT_PLAY_ARTIST = response.artist;
-		TIPS_COUNT = response.numberOfDonations;
+		// TIPS_COUNT = response.numberOfDonations;
 	});
 	// if(IS_DESKTOP){
 	// 	document.querySelector('.albumCoverHolder').style.backgroundImage = `url(${getCurrnetPlayedAlbumCover()})`
@@ -425,16 +424,16 @@ const injectDonateToPlayer = () => {
 		console.log(response)
 		CURRENT_PLAY_ALBUM = response.artworkUrlLarge;
 		CURRENT_PLAY_ARTIST = response.artist;
-		TIPS_COUNT = response.numberOfDonations;
+		// TIPS_COUNT = response.numberOfDonations;
 		
 		if(!IS_DESKTOP){
 			let playerTogglerButton = document.querySelector('.BottomNavPlayer_toggler__2fwVj');
 			playerTogglerButton.after(coinButton());
 			footer.after(donateContainer(WINDOW_VW_WIDTH, DEKSTOP_PLAYER_WIDTH));
 		}else{
-			let desktopPlayerButtpm = document.querySelector('.TopNavPlayer_controls__36S2C');
-			desktopPlayerButtpm.before(coinButton(true))
-			desktopPlayerButtpm.after(donateContainer(WINDOW_VW_WIDTH, DEKSTOP_PLAYER_WIDTH,IS_DESKTOP));
+			let desktopPlayerButton = document.querySelector('.TopNavPlayer_controls__36S2C');
+			desktopPlayerButton.before(coinButton(true))
+			desktopPlayerButton.after(donateContainer(WINDOW_VW_WIDTH, DEKSTOP_PLAYER_WIDTH,IS_DESKTOP));
 		}
 
 		// let podcastCover = document.querySelector('.PodcastTile_image__1TurG');
@@ -494,35 +493,33 @@ const injectDonateToPlayer = () => {
 // podcast cover image: .PodcastTile_image__1TurG
 
 const allPodcastElements = () => {
-
-	const elements = document.querySelectorAll(".PodcastTile_meta__27gUS")
-
-	return elements
+	return document.querySelectorAll(".PodcastTile_meta__27gUS")
 }
 
-//we should use coinButton (line 29) with extra css argument
-const addCoin = () => {
+// //we should use coinButton (line 29) with extra css argument
+// const addCoin = () => {
+// 	let tipButton = document.createElement('button');
+// 	tipButton.classList.add('coinButton');
 
-	let tipButton = document.createElement('button');
-	tipButton.classList.add('coinButton');
+// 	tipButton.style.cssText = `z-index: 9999; background: none; border: none; position: relative; margin: 0px; left: 90%; top: -20%;`
 
-	tipButton.style.cssText = `z-index: 9999; background: none; border: none; position: relative; margin: 0px; left: 90%; top: -20%;`
+// 	tipButton.onclick = ()=> {toggleDonateContainer()};
+// 	let tipButtonImage = document.createElement('img');
+// 	tipButtonImage.src = "https://i.ibb.co/5RTRKXt/kapimoneta.png"
 
-	tipButton.onclick = ()=> {toggleDonateContainer()};
-	let tipButtonImage = document.createElement('img');
-	tipButtonImage.src = "https://i.ibb.co/5RTRKXt/kapimoneta.png"
+// 	// let destktopCSSIMG = !IS_DESKTOP ? "top: -34px;right: -20px;" : "";
 
-	// let destktopCSSIMG = !IS_DESKTOP ? "top: -34px;right: -20px;" : "";
+// 	tipButtonImage.style.cssText = `width: 43px; position: absolute;`
 
-	tipButtonImage.style.cssText = `width: 43px; position: absolute;`
+// 	tipButton.appendChild(tipButtonImage)
 
-	tipButton.appendChild(tipButtonImage)
+// 	return tipButton;
+// }
+// //we should use coinButton (line 29) with extra css argument
 
-	return tipButton;
-}
 
 function addCoinToPodcast(index) {
-    allPodcastElements()[index].insertAdjacentElement('afterbegin', addCoin())
+    allPodcastElements()[index].insertAdjacentElement('afterbegin', coinButton())
 }
 
 function addCoinsToAllPodcasts() {
