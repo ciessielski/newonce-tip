@@ -506,5 +506,5 @@ function addCoinsToPodcasts() {
 }
 
 
-mainInject();
+// mainInject();
 

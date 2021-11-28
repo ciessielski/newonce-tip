@@ -1,7 +1,7 @@
 module.exports = {
   'mirrors': [
     {
-      'key': 'newonce-test',
+      'key': 'newonce-tip-dev',
       'proxied': 'https://newonce.net/',
       // 'proxying': 'hack.newonce.live'
     },
