@@ -25,32 +25,23 @@ const preventDefault = () => {
 	playerWrapper.style.cssText = 'overflow: visible';
 }
 
-const coinButton = (index) => {
+const coinButton = (placement, podcast_index) => {
+
 	let tipButton = document.createElement('button');
 	tipButton.classList.add('coinButton');
-	let desktopCSS = IS_DESKTOP ? "position: absolute;top: 37px;right: 126px;" : "";
+	tipButton.style.cssText = `z-index: 0;
+    	background-image: url(https://i.ibb.co/5RTRKXt/kapimoneta.png);
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-color: transparent;
+		border: none;
+		/* position: absolute; */
+		width: 40px;
+		height: 40px;`
 
-	// tipButton.style.cssText = `z-index:9999;background-image: url("https://i.ibb.co/5RTRKXt/kapimoneta.png"); border: none; position: relative; margin: 0;${desktopCSS}`
-	tipButton.style.cssText = `z-index:9999; border: none; position: relative; margin: 0;${desktopCSS}`
-
-	tipButton.onclick = ()=> {toggleDonateContainer(index)};
-	let tipButtonImage = document.createElement('img');
-	tipButtonImage.src = "https://i.ibb.co/5RTRKXt/kapimoneta.png"
-	let destktopCSSIMG = !IS_DESKTOP ? "top: -34px;right: -20px;" : "";
-	tipButtonImage.style.cssText = `width: 43px;position: absolute; ${destktopCSSIMG}`
-	tipButton.appendChild(tipButtonImage)
+	tipButton.onclick = ()=> {toggleDonateFrame()};
 
 	return tipButton;
-}
-
-
-const donateButton = () => {
-	let donateButton = document.createElement('button');
-	donateButton.classList.add('donateButton');
-	donateButton.onclick = () => {toggleDonateFrame()};
-	donateButton.style.cssText = "background: inherit;width: 120px;height: 37px;background-position: center;border: none;background-repeat: no-repeat;background-size: contain;background-image: url('https://i.ibb.co/XxwchT3/kapidonate.png');"
-
-	return donateButton;
 }
 
 //Choosing the amount
@@ -190,7 +181,7 @@ const donateFrameStep2 = () => {
 
 				setTimeout(()=> {
 					document.querySelector('.donateFrame').classList.remove('activeDonateFrame');
-					document.querySelector('.donateButton').style.backgroundImage = `url('https://i.ibb.co/NNrrkh7/kapitick.png')`
+					// document.querySelector('.donateButton').style.backgroundImage = `url('https://i.ibb.co/NNrrkh7/kapitick.png')`
 				}, 4000);
 			}, 5000);
 		}			
@@ -241,37 +232,37 @@ const donateFrame = () => {
 	return donateFrame;
 }
 
-const donateContainerBottomBox = () => {
-	let donateContainerBottomBox = document.createElement('div');
-	donateContainerBottomBox.style.cssText = "width: 100%;height: 0%;position: absolute;bottom: 0px;background-color: black;display:flex;justify-content: right;align-items: center;"
-	donateContainerBottomBox.appendChild(donateFrame());
+// const donateContainerBottomBox = () => {
+// 	let donateContainerBottomBox = document.createElement('div');
+// 	donateContainerBottomBox.style.cssText = "width: 100%;height: 0%;position: absolute;bottom: 0px;background-color: black;display:flex;justify-content: right;align-items: center;"
+// 	donateContainerBottomBox.appendChild(donateFrame());
 
-	return donateContainerBottomBox;
-}
+// 	return donateContainerBottomBox;
+// }
 
-const donateContainer = (viewportWidth, desktopPlayerWidth,isDekstop) => {
+// const donateContainer = (viewportWidth, desktopPlayerWidth, isDekstop) => {
 
-	let donateContainer = document.createElement('div');
-	donateContainer.classList.add('donateContainer');
-	let desktopCSS = isDekstop ? "bottom:0;top:96px;" : "" 	
-	donateContainer.style.cssText = `max-width:1023px;transform: translateX(1500px);position: fixed;width: 100%;bottom: 116px;max-height: 560px;${desktopCSS}`
-	donateContainer.appendChild(donateContainerBottomBox())	
+// 	let donateContainer = document.createElement('div');
+// 	donateContainer.classList.add('donateContainer');
+// 	let desktopCSS = isDekstop ? "bottom:0;top:96px;" : "" 	
+// 	donateContainer.style.cssText = `max-width:1023px;transform: translateX(1500px);position: fixed;width: 100%;bottom: 116px;max-height: 560px;${desktopCSS}`
+// 	donateContainer.appendChild(donateContainerBottomBox())	
 
-	return donateContainer;
-} 
+// 	return donateContainer;
+// } 
 
-const toggleDonateContainer = (index) => {
-	let donateContainer = document.querySelector('.donateContainer');
+// const toggleDonateContainer = (index) => {
+// 	let donateContainer = document.querySelector('.donateContainer');
 
-	const check = donateContainer.classList.contains("activeDonateContainer");
-	if(check){
-		donateContainer.classList.remove('activeDonateContainer');
-	}
-	else{
-		console.log('dsds')
-		donateContainer.classList.add('activeDonateContainer');
-	}	
-}
+// 	const check = donateContainer.classList.contains("activeDonateContainer");
+// 	if(check){
+// 		donateContainer.classList.remove('activeDonateContainer');
+// 	}
+// 	else{
+// 		console.log('dsds')
+// 		donateContainer.classList.add('activeDonateContainer');
+// 	}	
+// }
 
 
 const toggleDonateFrame = () => {
