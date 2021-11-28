@@ -45,6 +45,6 @@ function makeMirror (mirror) {
 }
 
 config.mirrors.forEach(makeMirror)
-console.log("kisiel xx pomakemirror")
+console.log("kisiel xxxx pomakemirror")
 
 

@@ -2,7 +2,7 @@
 // podcast container with black background: .PodcastTile_meta__27gUS
 // podcast cover image: .PodcastTile_image__1TurG
 
-const addCoin = () => {
+const podcastCoin = () => {
 
 	let tipButton = document.createElement('button');
 	tipButton.classList.add('coinButton');
@@ -31,7 +31,7 @@ const allPodcastElements = () => {
 
 function addCoinToPodcast(index) {
 	
-    allPodcastElements()[index].insertAdjacentElement('afterbegin', addCoin())
+    allPodcastElements()[index].insertAdjacentElement('afterbegin', podcastCoin())
 }
 
 function addCoinsToAllPodcasts() {
