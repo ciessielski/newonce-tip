@@ -15,6 +15,7 @@ const API_URL = 'https://newonce-tip-api.vercel.app/api';
 const PODCAST_INJECT_CLASS = ".PodcastTile_podcastTile__2fzQG";
 const MOBILE_PLAYER_INJECT_CLASS = ".BottomNavPlayer_toggler__2fwVj";
 const DESKTOP_PLAYER_INJECT_CLASS = ".TopNavPlayer_controls__36S2C";
+const PAGE_WRAPER = '.PageWrapper_wrapper__2FrgZ';
 
 //@@@@@@@@@@ VIEW @@@@@@@@@@
 
@@ -29,14 +30,16 @@ const warningBar = () => {
 }
 
 const coinButton = (top,right, size=40) => {
-
 	let tipButton = document.createElement('button');
 	tipButton.classList.add('coinButton');
-	tipButton.onclick = ()=> {toggleDonateFrame()};
+	tipButton.onclick = ()=> {
+		appendDonateFrameToCoinButton(tipButton);
+		toggleDonateFrame();
+	};
 
 	tipButton.style.cssText = 
 	`
-		z-index: 0;
+		z-index: 2999;
     	background-image: url(https://i.ibb.co/5RTRKXt/kapimoneta.png);
 		background-repeat: no-repeat;
 		background-size: contain;
@@ -51,46 +54,11 @@ const coinButton = (top,right, size=40) => {
 	return tipButton;
 }
 
-
-
-
-
-
-//Choosing the amount
-const donateFrameStep1 = () => {
-	let donateFrameStep1 = document.createElement('div');
-	donateFrameStep1.classList.add('donateFrameStep1');
-
-	let step1backgroundURL = IS_DESKTOP ? "https://i.ibb.co/kM2Pfbm/kapikwota-g.png" : "https://i.ibb.co/ZBkdk0M/kapikwota.png";
-	donateFrameStep1.style.cssText = `background-image: url(${step1backgroundURL});background-size: contain;width: 100%;height: 100%;background-repeat: no-repeat`;
-	//donateFrameStep1.classList.add('noneActiveFrame');
-
-	let bottomPX = IS_DESKTOP ? "25px" : "40px";
-	let amountButtonsHolder = document.createElement('div');
-	amountButtonsHolder.style.cssText = `position: absolute;width: 150px;height: 40px;background-color: red;bottom: ${bottomPX};left: 30px;display: flex;justify-content: space-around;`
-
+const button5PLN = () => {
 	let button5PLN = document.createElement('button');
 	button5PLN.classList.add('button5PLN')
-	button5PLN.style.cssText = "background-image: url('https://i.ibb.co/K6WSY30/kapi5N.png')";
-	
-	let button10PLN = document.createElement('button');
-	button10PLN.classList.add('button10PLN');
-	button10PLN.style.cssText = "background-image: url(https://i.ibb.co/f28S0nT/kapi10n.png);";
-	
-	let button50PLN = document.createElement('button');
-	button50PLN.classList.add('button50PLN');
-	button5PLN.onclick = () => {TIP_AMOUNT = 50}
-	button50PLN.style.cssText = "background-image: url(https://i.ibb.co/8rpwj8Q/kapi50n.png);";
-
 	button5PLN.classList.add('amountButton')
-	button10PLN.classList.add('amountButton')
-	button50PLN.classList.add('amountButton')
-
-	amountButtonsHolder.appendChild(button5PLN);
-	amountButtonsHolder.appendChild(button10PLN);
-	amountButtonsHolder.appendChild(button50PLN);
-
-	donateFrameStep1.appendChild(amountButtonsHolder);
+	button5PLN.style.cssText = "background-image: url('https://i.ibb.co/K6WSY30/kapi5N.png')";
 
 	button5PLN.onclick = () => {
 		document.querySelector('.donateFrameStep1').style.display = "none";
@@ -99,6 +67,15 @@ const donateFrameStep1 = () => {
 		setAmoutBlikIcon(TIP_AMOUNT)
 	}
 
+	return button5PLN
+}
+
+const button10PLN = () => {
+	let button10PLN = document.createElement('button');
+	button10PLN.classList.add('button10PLN');
+	button10PLN.classList.add('amountButton')
+	button10PLN.style.cssText = "background-image: url(https://i.ibb.co/f28S0nT/kapi10n.png);";
+
 	button10PLN.onclick = () => {
 		document.querySelector('.donateFrameStep1').style.display = "none";
 		document.querySelector('.donateFrameStep2').style.display = "block";
@@ -106,12 +83,43 @@ const donateFrameStep1 = () => {
 		setAmoutBlikIcon(TIP_AMOUNT)
 	}
 
+	return button10PLN
+} 
+	
+const button50PLN = () => {
+	let button50PLN = document.createElement('button');
+	button50PLN.classList.add('button50PLN');
+	button50PLN.classList.add('amountButton')
+	button50PLN.style.cssText = "background-image: url(https://i.ibb.co/8rpwj8Q/kapi50n.png);";
+
 	button50PLN.onclick = () => {
+		console.log('a');
 		document.querySelector('.donateFrameStep1').style.display = "none";
 		document.querySelector('.donateFrameStep2').style.display = "block";
-		TIP_AMOUNT = 5000
-		setAmoutBlikIcon(TIP_AMOUNT)
+		TIP_AMOUNT = 5000;
+		setAmoutBlikIcon(TIP_AMOUNT);
 	}
+	
+	return button50PLN
+}
+
+//Choosing the amount
+const donateFrameStep1 = () => {
+	let donateFrameStep1 = document.createElement('div');
+	donateFrameStep1.classList.add('donateFrameStep1');
+	let step1backgroundURL = IS_DESKTOP ? "https://i.ibb.co/kM2Pfbm/kapikwota-g.png" : "https://i.ibb.co/ZBkdk0M/kapikwota.png";
+	donateFrameStep1.style.cssText = `background-image: url(${step1backgroundURL});background-size: contain;width: 100%;height: 100%;background-repeat: no-repeat`;
+	
+	let bottomPX = IS_DESKTOP ? "25px" : "40px";
+	let amountButtonsHolder = document.createElement('div');
+	amountButtonsHolder.style.cssText = `position: absolute;width: 150px;height: 40px;background-color: red;bottom: ${bottomPX};left: 30px;display: flex;justify-content: space-around;`
+
+	amountButtonsHolder.appendChild(button5PLN());
+	amountButtonsHolder.appendChild(button10PLN());
+	amountButtonsHolder.appendChild(button50PLN());
+
+	donateFrameStep1.appendChild(amountButtonsHolder);
+
 	return donateFrameStep1;
 }
 
@@ -227,15 +235,19 @@ const donateFrameStep3 = () => {
 	return donateFrameStep3;
 }
 
-const donateFrame = () => {
+const donateFrame = (top,right) => {
 	let donateFrame = document.createElement('div');
 	donateFrame.classList.add('donateFrame');
 	donateFrame.classList.add('activeDonateFrame');
+	donateFrame.style.cssText = 
+	`background-size: contain;
+	width: 216px;
+	height: 150px;
+	position: absolute;
+	top: ${top}px;
+	right: ${right}px;
+	background-repeat: no-repeat`;
 	
-	if(IS_DESKTOP){
-		donateFrame.style.cssText = 'transform: translateX(600px);background-size: contain;width: 216px;height: 150px;position: absolute;top: -485px;right: 610px;background-repeat: no-repeat';
-	}
-
 	donateFrame.appendChild(donateFrameStep1());
 	donateFrame.appendChild(donateFrameStep2());
 	donateFrame.appendChild(donateFrameStepLOADING());
@@ -243,8 +255,6 @@ const donateFrame = () => {
 
 	return donateFrame;
 }
-
-
 
 
 //@@@@@@@@@@@@ CONTROLLER @@@@@@@@@@@@
@@ -286,7 +296,6 @@ addCSS(
 	}
 
 	.donateFrame{
-		transform: translateX(600px);
 		background-size: contain;
 		width: 216px;
 		height: 150px;
@@ -369,6 +378,10 @@ const updateArtist = async () => {
 
 //@@@@@@@@@ MODEL @@@@@@@@
 
+const appendDonateFrameToCoinButton = (element) => {
+	document.querySelectorAll(".donateFrame").forEach(e => e.remove());
+	element.appendChild(donateFrame(35,-25));
+}
 
 const injectWarningBar = () => {
 	let waringInjectHolder = document.querySelector('.AppBar_wrapper__2Z1NQ');
@@ -377,7 +390,6 @@ const injectWarningBar = () => {
 
 const injectDonateToPlayer = () => {
 	updateArtist().then(()=>{
-		console.log(CURRENT_PLAY_ALBUM)
 		if(!IS_DESKTOP){
 			document.querySelector(MOBILE_PLAYER_INJECT_CLASS).after(coinButton(30,70));
 		}else{
@@ -390,15 +402,10 @@ const injectDonateToPlayer = () => {
 	}, 2000);
 }
 
-const addCoinsToAllPodcasts = () => {	
+const injectDonateToPodcasts = () => {	
 	for (const podcast of returnAllElementsWithGiven(PODCAST_INJECT_CLASS)){
 		podcast.appendChild(coinButton(-20,-20,35))
 	} 
-}
-
-const injectDonateToPodcasts = () => {
-	addCoinsToAllPodcasts()
-	// TODO: [] (optional) add payu logic
 }
 
 const injectDonateToArticle = () => {
@@ -407,12 +414,14 @@ const injectDonateToArticle = () => {
 	// [] (optional) add payu logic
 }
 
+
+
 preventDefault();
 injectWarningBar()
 injectDonateToPodcasts();
 injectDonateToArticle()
 injectDonateToPlayer();
-
+// injectDonateFrame();
 
 
 
